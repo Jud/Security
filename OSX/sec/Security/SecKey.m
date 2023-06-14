@@ -1350,6 +1350,7 @@ SecKeyRef SecKeyCreateWithData(CFDataRef keyData, CFDictionaryRef parameters, CF
 
     CFStringRef tokenID = CFDictionaryGetValue(parameters, kSecAttrTokenID);
     if (tokenID != NULL) {
+        CFDictionarySetValue(parameters, kSecAttrTokenOID, keyData);
         key = SecKeyCreateCTKKey(allocator, parameters, error);
         if (key == NULL) {
             os_log_debug(SECKEY_LOG, "Failed to create key for tokenID=%{public}@: %{public}@", tokenID, error ? *error : NULL);
